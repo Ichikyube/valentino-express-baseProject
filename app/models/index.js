@@ -1,22 +1,19 @@
 'use strict';
-
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const dbConfig = require("../config/db.config.js");
+require('dotenv').config()
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
+const process = require('process')
+const basename = path.basename(__filename)
+const env = process.env.NODE_ENV || 'development'
+const config = require(__dirname + '/../config/config.json')[env]
+const dbConfig = require("../config/db.config.js")
 
 let sequelize;
-// if(process.env.MODE == 'development') {
-//   sequelize = new Sequelize(process.env[config.use_env_variable], config);
-// } else if(process.env.MODE == 'production') {
-// }
-
-if (config.use_env_variable) {
+if(process.env.MODE == 'development') {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else if(process.env.MODE == 'production') {
+
 } else {
   sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -30,6 +27,10 @@ if (config.use_env_variable) {
       idle: dbConfig.pool.idle
     }
   });
+}
+
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 }
 
 const db = {};

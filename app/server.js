@@ -1,4 +1,3 @@
-require('dotenv').config()
 const responseHelper = require('express-response-helper').helper();
 const express = require ("express")
 const app = express()
