@@ -1,32 +1,17 @@
 'use strict';
-require('dotenv').config()
 const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
 const process = require('process')
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
-const config = require(__dirname + '/../config/config.json')[env]
-const dbConfig = require("../config/db.config.js")
+const config = require(__dirname + '/../config/config.js')[env]
 
 let sequelize;
-if(process.env.MODE == 'development') {
+if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else if(process.env.MODE == 'production') {
-
 } else {
-  sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    operatorsAliases: false,
-  
-    pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle
-    }
-  });
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 if (config.use_env_variable) {

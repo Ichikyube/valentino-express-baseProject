@@ -10,10 +10,9 @@ const db  = require('./models/index.js')
 var corsOptions = {
     origin: "http://localhost:8801"
 }
+
 app.use(responseHelper)
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync Db');
-});
+db.sequelize.sync({ force: false, alter: true})
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
