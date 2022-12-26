@@ -3,9 +3,9 @@ module.exports = {
   development: {
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    database: "exbaseProject",
+    database: process.env.DATABASE_DEVELOPMENT_NAME,
     host: process.env.DATABASE_HOSTNAME,
-    dialect: "postgres",
+    dialect: process.env.DATABASE_DIALECT,
     pool: {
       max: 5,
       min: 0,
@@ -16,15 +16,15 @@ module.exports = {
   test: {
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    database: "database_test",
+    database: process.env.DATABASE_TEST_NAME,
     host: process.env.DATABASE_HOSTNAME,
-    dialect: "postgres"
+    dialect: process.env.DATABASE_DIALECT
   },
   production: {
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    database: "database_production",
+    database: process.env.DATABASE_PRODUCTION_NAME,
     host: process.env.DATABASE_HOSTNAME,
-    dialect: "postgres"
+    dialect: process.env.DATABASE_DIALECT
   }
 }
